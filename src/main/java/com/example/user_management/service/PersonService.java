@@ -1,6 +1,7 @@
 package com.example.user_management.service;
 
 import com.example.user_management.domain.Person;
+import com.example.user_management.exceptions.UserNotFoundException;
 import com.example.user_management.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class PersonService {
         if(optionalPerson.isPresent()){
             return optionalPerson.get();
         }
-        throw new RuntimeException("user not found");
+        throw new UserNotFoundException("User not Found: "+id);
     }
 
     public Person getUserByPhone(String phone) {

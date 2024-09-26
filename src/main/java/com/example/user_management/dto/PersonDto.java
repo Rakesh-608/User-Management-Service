@@ -3,7 +3,7 @@ package com.example.user_management.dto;
 import java.time.LocalDateTime;
 
 public record PersonDto(
-        String id,
+        Long id,
         String name,
         String role,
         String email,

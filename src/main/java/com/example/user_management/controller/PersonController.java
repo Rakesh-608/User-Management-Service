@@ -2,12 +2,16 @@ package com.example.user_management.controller;
 
 
 import com.example.user_management.domain.Person;
+import com.example.user_management.dto.PersonDto;
 import com.example.user_management.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
 
     private final PersonService personService;
@@ -16,8 +20,19 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> registerUser(@RequestBody Person person){
+    @PostMapping("/addUser")
+    public ResponseEntity<?> registerUser(@RequestBody PersonDto dto){
+        Person person = new Person();
+        person.setId(dto.id());
+        person.setName(dto.name());
+        person.setRole(dto.role());
+        person.setEmail(dto.email());
+        person.setPassword(dto.password());
+        person.setPhone(dto.phone());
+        person.setAddress(dto.address());
+        person.setGender(dto.gender());
+        person.setAge(dto.age());
+        person.setEmergencyContact(dto.emergencyContact());
         return ResponseEntity.ok(personService.saveUser(person));
     }
 
@@ -71,4 +86,6 @@ public class PersonController {
     public ResponseEntity<?> updateProfile(){
         return ResponseEntity.ok("updateProfile");
     }
+
+
 }
